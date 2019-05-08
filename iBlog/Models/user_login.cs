@@ -12,10 +12,9 @@ namespace iBlog.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class file_repo
+    public partial class user_login
     {
-        public byte[] download_file { get; set; }
-        public long passage_id { get; set; }
-        public Nullable<System.DateTime> last_edited { get; set; }
+        public long user_id { get; set; }
+        public string password { get; set; }
     }
 }

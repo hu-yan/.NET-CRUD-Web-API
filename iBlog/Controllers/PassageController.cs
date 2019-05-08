@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Data.SqlTypes;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -21,9 +22,9 @@ namespace iBlog.Controllers
         public HttpResponseMessage GetDocFile(long id)
         {
             var rs = new HttpResponseMessage(HttpStatusCode.OK);
-            using (iBlogEntities entities = new iBlogEntities())
+            using (var entities = new iBlogEntities())
             {
-                entities.passage.SqlQuery("SELECT title FROM Passage WHERE id = " + id);
+                entities.passage.SqlQuery("SELECT title FROM Passage WHERE passage_id = " + id);
                 string title = entities.passage.ToArray()[0].title;
                 string fileName = title + ".md";
                 var filePath = HttpContext.Current.Server.MapPath($"~/App_Data/{fileName}");
@@ -39,5 +40,58 @@ namespace iBlog.Controllers
             return rs;
         }
 
+        [HttpGet]
+        [Route("api/passage/search/by_ID/{id:long:length(4)}")]
+        public object GetPassageById(long id)
+        {
+            using (var entities = new iBlogEntities())
+                {
+                    var rs = entities.passage.SqlQuery("SELECT * FROM Passage WHERE passage_id = " + id);
+                    var isNUllCount = rs.ToList().Count;
+                    if (isNUllCount == 0)
+                    {
+                        return "No Such Passage";
+
+                    }
+                try
+                    {
+                        return rs.ToArray()[0];
+                    }
+                    catch (Exception e)
+                    {
+                        return "Input Format Error";
+                    }
+                }
+
+
+        }
+
+        [HttpGet]
+        [Route("api/passage/search/by_Title/{title:length(1,50)}")]
+        public object GetPassageByTitle(string title)
+        {
+            using (var entities = new iBlogEntities())
+            {
+                var rs = entities.passage.SqlQuery("SELECT * FROM Passage WHERE title like '%" + title + "%'");
+                var isNUllCount = rs.ToList().Count;
+                if (isNUllCount == 0)
+                {
+                    return "No Such Passage";
+
+                }
+                try
+                {
+                   return rs.ToList();
+                }
+                catch (Exception e)
+                {
+                    return "Input Format Error";
+                }
+            }
+
+
+        }
     }
 }
+
+

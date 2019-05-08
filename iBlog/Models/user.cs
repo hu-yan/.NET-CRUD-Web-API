@@ -17,5 +17,7 @@ namespace iBlog.Models
         public string user_name { get; set; }
         public long user_id { get; set; }
         public int user_permission { get; set; }
+    
+        public virtual user_login user_login { get; set; }
     }
 }

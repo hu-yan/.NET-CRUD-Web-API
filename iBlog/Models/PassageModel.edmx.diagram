@@ -5,11 +5,11 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="8eb562063cff44e8b65846ce67e802f3" Name="Diagram1" ZoomLevel="86">
-        <EntityTypeShape EntityType="iBlogModel.file_repo" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="iBlogModel.passage" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="iBlogModel.passage" Width="1.5" PointX="6.25" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="iBlogModel.user" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
-        <AssociationConnector Association="iBlogModel.FK_file_repo_passage" ManuallyRouted="false" />
         <AssociationConnector Association="iBlogModel.FK_passage_user" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="iBlogModel.user_login" Width="1.625" PointX="3" PointY="4.5" />
+        <AssociationConnector Association="iBlogModel.FK_user_login_user" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
