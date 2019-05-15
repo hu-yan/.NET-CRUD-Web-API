@@ -88,6 +88,23 @@ namespace iBlog.Controllers
                     return "Input Format Error";
                 }
             }
+        }
+
+        [HttpGet]
+        [Route("api/passage/search/draft")]
+        public object GetDraft()
+        {
+            using (var entities = new iBlogEntities())
+            {
+                var rs = entities.passage.SqlQuery("SELECT * FROM Passage WHERE is_draft = 1");
+                var isNUllCount = rs.ToList().Count;
+                if (isNUllCount == 0)
+                {
+                    return "No Such Passage";
+
+                }
+                    return rs.ToList();
+            }
 
 
         }
